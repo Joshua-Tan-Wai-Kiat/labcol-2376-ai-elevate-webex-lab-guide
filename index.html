@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Next Gen Calling AI Elevate with Webex | LABCOL-2376</title>
+<style>body{font-family:Arial,sans-serif;line-height:1.55;color:#172b4d;margin:auto;max-width:960px;padding:28px}h1{color:#0b5cab;margin-top:2.5rem}h2{color:#123b68;margin-top:2rem}li{margin:.35rem 0}blockquote{border-left:4px solid #0b5cab;background:#eef6ff;padding:1rem;margin:1.2rem 0}a{color:#0b5cab}code{background:#f1f3f5;padding:.15rem .3rem} .lab-meta{color:#52606d;font-weight:bold}</style>
+</head><body><h1 id="next-gen-calling-ai-elevate-with-webex">Next Gen Calling AI Elevate with Webex</h1>
+<p class="lab-meta">Cisco Live Melbourne 2026 | LABCOL-2376</p>
+
+<p>This public web edition presents the lab workflow for configuring Webex Calling, a Local Gateway, live captions and transcripts, and AI-generated recording summaries.</p>
+<p><strong>Important:</strong> Use only the credentials, pod addresses, DID numbers, and phone numbers assigned to you privately. They are intentionally omitted here, along with all source screenshots, to prevent accidental disclosure of lab access details.</p>
+<h2 id="lab-modules">Lab modules</h2>
+<ul>
+<li><a href="01-access-the-lab.md">Access your lab</a></li>
+<li><a href="02-webex-calling-org.md">Set up the Webex Calling organization</a></li>
+<li><a href="03-local-gateway.md">Configure the Local Gateway</a></li>
+<li><a href="04-captions-transcripts.md">Test captions and call transcripts</a></li>
+<li><a href="05-recording-summaries.md">Test call recording summaries</a></li>
+</ul>
+<h2 id="source-handling">Source handling</h2>
+<p>The original Word document is not included in this repository. Its embedded screenshots are omitted because they can display temporary session information. The procedural content has been retained, except for access details and passwords.</p>
+<hr>
+<h1 id="accessing-your-lab-approx-10-min">Accessing your Lab [Approx 10 min]</h1>
+<blockquote>
+<p>Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.</p>
+</blockquote>
+<p>Open a browser on your laptop and go to your assigned dCloud event page</p>
+<p>You will be automatically assigned to a lab pod, and you will be taken to the Lab topology page as shown below.</p>
+<p>Similarly, you can click on any other Virtual Machine on the topology page to get its respective details.</p>
+<p>In this lab, you will access Workstation 1 (through WebRDP) and from Workstation 1 you will be able to access all the other virtual machines or Cisco UC applications like CUBE, Webex Control Hub, etc., to complete the lab tasks.</p>
+<p>Accessing Workstation 1</p>
+<p>To access Workstation 1 over WebRDP, click on the Workstation 1 icon on the topology page and when it brings up a fly-out window on the left, click on the Remote Access &gt; Web RDP. It will open a new browser tab and connect you to Workstation 1.</p>
+<p>Now you can proceed with the lab modules.</p>
+<hr>
+<h1 id="module-1-setting-up-a-webex-calling-org-in-the-control-hub-approx-10-min">Module 1: Setting up a Webex Calling org in the Control Hub [Approx 10 min]</h1>
+<blockquote>
+<p>Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.</p>
+</blockquote>
+<p>Webex Calling Licenses:</p>
+<p>Webex Calling is available through the Cisco Collaboration Flex Plan. You must purchase an Enterprise Agreement (EA) plan or a Named User (NU) plan.</p>
+<p>Webex Calling provides three license types:</p>
+<p>Professional - These licenses provide a full feature set for your entire organization. This offer includes unified communications (Webex Calling), mobility (desktop and mobile clients with support for multiple devices), team collaboration in the Webex App, and the option to bundle meetings with up to 1000 participants per meeting.</p>
+<p>Standard - is designed for users requiring standard calling capabilities with a single device. This license allows users to use either one hardware device (e.g., an IP Phone) or soft clients (mobile, desktop, or tablet) across platforms. While offering essential features like voicemail and hotdesking profiles, it does not support advanced functionalities such as virtual lines, Voice Queues agent configuration, or Microsoft Teams calling integration.</p>
+<p>Workspaces (also known as Common Area) - Choose this option if you're looking for a basic dial tone with a limited set of calling features appropriate for areas such as break rooms, lobbies, and conference rooms.</p>
+<p>In this lab, we will explore the Professional License option only.</p>
+<h2 id="module-1a-bulk-import-did-numbers-assign-numbers-to-a-location-and-the-user-charles-holland">Module 1a: Bulk Import DID numbers, Assign Numbers to a Location and the user Charles Holland</h2>
+<p>In this module we will import random/fake phone (DID) numbers to the Control Hub, define the Main number for the location in Control Hub, and assign a number to the user Charles Holland. In a customer environment, when you have an existing PSTN provider and DID numbers, you can import all your DID numbers into Control Hub and assign them as the Main number and/or to any user for Webex Calling.</p>
+<ul>
+<li>
+<p>Within Workstation 1, open the Chrome browser from the taskbar.</p>
+</li>
+<li>
+<p>For security reasons, Webex Control Hub signs out every 20 minutes (Idle timeout) by default. For this lab, let's make the idle time out longer so the Control Hub does not sign you out often during this lab. Go to MANAGEMENT &gt; Organization Settings &gt; Control Hub's idle timeout. Drop down the option for Control Hub idle timeout and select 12 hours or no timeout. Click Save.</p>
+</li>
+<li>
+<p>Go to SERVICES &gt; PSTN &amp; Routing. Click + Add Numbers.</p>
+</li>
+<li>
+<p>On the Add Numbers page, drop down the option for Location and choose dCloud. Since we are setting up this location for the first time, first we need to select the PSTN Connection for this location. Click Edit PSTN.</p>
+</li>
+<li>
+<p>You will be taken to Edit PSTN connection for dCloud (Location) and under the connection type choose Premises-based PSTN and click Next.</p>
+</li>
+<li>
+<p>On the following page, drop down the option for Routing Choice and choose None. Even though None option is being shown as selected, you still have to click the dropdown option and choose None again. Select the checkbox for the confirmation and click Next.</p>
+</li>
+<li>
+<p>On the following page click Add Numbers Now (bottom right corner). You will be taken back to Add Numbers page with the PSTN connection populated, click Next.</p>
+</li>
+<li>
+<p>Minimize the browser (and other applications), and on the desktop find a text file named DID_Numbers.txt. It will have some DID Numbers (Fake) prepopulated for you. Select all of them, copy and paste them into Enter phone numbers field on Control Hub as shown below. Some Numbers might be marked in Red; this is because that number is either already used or taken by someone else within Webex Calling. You can remove all those numbers marked in Red by clicking the cross button next to them. Click Save.</p>
+</li>
+</ul>
+<p>NOTE: You will not face this issue of numbers being taken in production as you own the numbers from your Telco (phone company) provider for your organization.</p>
+<ul>
+<li>
+<p>Click Close on the following page and you will be taken to the Numbers page where you can see all the numbers you have just added.</p>
+</li>
+<li>
+<p>Now, let's assign one of these numbers to the dCloud Location as the main number. On the Control Hub, go to MANAGEMENT &gt; Locations.</p>
+</li>
+<li>
+<p>Select the dCloud location. Go to the Calling tab, you will notice that under the Main Number field, there is a warning that reads You will not be able to make or receive calls until this number is added.</p>
+</li>
+<li>
+<p>Drop down the option for Main Number and choose any of the numbers you have imported above and click Save.</p>
+</li>
+<li>
+<p>As soon as you save, the warning will disappear, indicating now your location can make and receive calls.</p>
+</li>
+</ul>
+<h2 id="module-1b-assigning-calling-licenses-to-a-user-on-webex-control-hub">Module 1b: Assigning Calling Licenses to a user on Webex Control Hub</h2>
+<ul>
+<li>
+<p>Continuing on Workstation 1, Go back to the browser where you have logged in to Webex Control Hub before.</p>
+</li>
+<li>
+<p>Go to MANAGEMENT &gt; Users.</p>
+</li>
+<li>
+<p>Select Charles Holland user from the list of users.</p>
+</li>
+<li>
+<p>On the user Summary page scroll down and click Edit Licenses</p>
+</li>
+<li>
+<p>On the next page click Edit Licenses (towards the bottom right) again.</p>
+</li>
+<li>
+<p>On the next page go to the Calling tab and check mark for both options Webex Calling and Professional and Click Save.</p>
+</li>
+<li>
+<p>On the next page, in the dropdown option for Location, select dCloud. Drop down Phone Number field and select one of the PSTN Numbers available. Select any number other than the number you have assigned as the Main Number (previous module). Populate the extension field with 6018 for the user. Click Save. Click Close.</p>
+</li>
+</ul>
+<p>NOTE: Note the PSTN Number you have assigned to Charles Holland in a text file. You will need this number later in the lab.</p>
+<ul>
+<li>
+<p>You will be taken back to the user Summary page. Notice that under Licenses, now Webex Calling Professional has been added for the Calling service.</p>
+</li>
+<li>
+<p>This completes the Assigning Calling Licenses on the Webex Control Hub Module.</p>
+</li>
+</ul>
+<hr>
+<h1 id="module-2-configuring-a-local-gateway-for-webex-calling-approx-25-min">Module 2: Configuring a Local Gateway for Webex Calling [Approx 25 min]</h1>
+<blockquote>
+<p>Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.</p>
+</blockquote>
+<p>After you configure Webex Calling for your organization, you can configure a trunk to connect your Local Gateway (LGW) to Webex Calling. SIP TLS transport secures the trunk between the Local Gateway and the Webex cloud. The media between the Local Gateway and Webex Calling uses SRTP. You can also import your pre-owned DIDs into Control Hub.</p>
+<p>There are two options to configure the Local Gateway for your Webex Calling trunk:</p>
+<p>Registration-based trunk</p>
+<p>Certificate-based trunk</p>
+<p>In this lab, we will cover only Registration-based Trunk.</p>
+<h2 id="module-2a-local-gateway-configuration">Module 2a: Local Gateway Configuration</h2>
+<p>In this module there are sub modules that are CLI (Command Line Interface) based. These sub modules contain downloading the required Root certificate bundle for the Local Gateway (LGW), configuring voice class tenant, voice class SIP profiles, dial-peers and other required commands on the CLI. Due to time limitations, we have created a PowerShell script that adds the premises-based trunk in the Control Hub and generates the CUBE configuration for the Local Gateway. When the script is run, it will generate the entire required configuration for LGW and put it on Workstation 1 Desktop in a file called CL_LGW_ Config-Ready.txt. Once the configuration is generated, you can just copy and paste it in the putty session of the LGW and proceed to next steps.</p>
+<p>Continuing on Workstation 1, minimize all applications and find a PowerShell script on Desktop named CL_Add_Trunk.ps1.</p>
+<p>Right click on the file and choose Run with PowerShell.</p>
+<p>It will open the PowerShell script window and execute the script. Once the script has been executed, the PowerShell window pane will close automatically. Then you will see a text file created on the Desktop called CL_LGW_Config-Ready.txt that contains the entire CUBE configuration required for the LGW. Double click and open the configuration file.</p>
+<p>Copy all (use Ctrl + A) the contents of the file (CL_LGW_Config-Ready.txt). Go to the putty window and paste (Right click anywhere on the putty window).</p>
+<p>Once all the configuration is entered on Putty, scroll up and make sure there are NO error messages for any of the commands.</p>
+<p>NOTE: Ignore the error message about saving the configuration at the end.</p>
+<ul>
+<li>At this point, the LGW should initiate registration to Webex Calling and you should see the trunk in LGW and Webex Calling up/online. Wait for 2 to 3 minutes and then on the Putty window use the command below, you will see the registration status yes.</li>
+</ul>
+<p>Configuration:</p>
+<p>The status of the trunk can be seen in the output of this command; you can see here that the registration status is yes.</p>
+<p>Once you see the trunk registration status is yes, you can continue to the next module.</p>
+<h2 id="module-2b-verifying-trunk-status-on-control-hub-and-assigning-it-to-a-route-grouplocation">Module 2b: Verifying trunk status on Control Hub and assigning it to a route group/location:</h2>
+<p>Before we start to test the Local Gateway configuration, verify that the premises-based PSTN trunk shows online in Control Hub. Go back to the browser tab where you had Webex Control Hub Open.</p>
+<p>Navigate to Services &gt; PSTN &amp; Routing &gt; Gateway Configuration &gt; Trunk. Select the trunk that was added in the above module. On the fly-out window under Details click Trunk Info/Manage.</p>
+<p>Ensure the status in Control Hub shows Online as displayed above. If the status does not show online, it means that there is some configuration issue. You will need to verify your Voice Class Tenant and SIP profiles on the vCUBE platform.</p>
+<p>Once you have verified that the trunk status is online, you can assign this trunk directly to a location or create a Route Group with that trunk and assign the Route Group to a location. Creating a Route Group with a trunk and assigning it to a location helps to have multiple trunks in a route group and in production environments, it avoids service disruptions.</p>
+<p>Let's create a Route Group, Go to SERVICES &gt; PSTN &amp; Routing &gt; Gateway Configuration &gt; Route Group tab. Select Create Route Group.</p>
+<p>It will bring up a new pop-up window to create a new Route Group. On the pop-up window populate the following and click Save.</p>
+<p>Name: dCloud-RG</p>
+<p>Trunks: Drop down the option and choose the only available trunk (dCloud-Auto)</p>
+<p>It will create the new Route Group dCloud-RG with the trunk.</p>
+<ul>
+<li>Now we can assign this Route Group to the location. Click Locations (hyperlink) on the pop-up window. Select the dCloud location under available locations. On the dCloud location page, go to the PSTN tab. On the PSTN tab click Manage (next to PSTN Configuration &gt; PSTN connection).</li>
+</ul>
+<p>On the following page drop down the option for Routing Choice and choose the Route Group you defined. In this lab guide, it's named: dCloud-RG. Checkmark the option to confirm that you understand the impact of these changes. Also notice that as soon as you select the route group from the list, it displays the trunks in that Route Group. Click Next. Click Done (add numbers later) on the following page.</p>
+<p>Now just to make sure the trunk is assigned to the location, go to SERVICES &gt; PSTN &amp; Routing &gt; Gateway Configuration &gt; Trunk</p>
+<p>Under the Trunk tab for the dCloud-Auto (or your trunk name) In Use column should show Yes as shown below. Similarly, if you go to Route Group tab, it will show the dCloud-RG route group In Use.</p>
+<p>This completes verifying the trunk status on Control Hub and assigning it to Route Group/Location.</p>
+<p>Note: Test calls to and from PSTN will be done in the next sections, Modules 3 and 4.</p>
+<hr>
+<h1 id="module-3-ai-generated-closed-captions-and-call-transcriptions-approx-15-min">Module 3: AI-generated Closed Captions and Call Transcriptions [Approx 15 min]</h1>
+<blockquote>
+<p>Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.</p>
+</blockquote>
+<p>Closed Captions (CC) display the spoken content as text during a live call. Call transcription converts spoken language into written text in real time, but it typically includes only the spoken words, not sounds or signals. It updates instantly as participants speak during the live call. Each user in a call can enable the call transcription independently, and it appears only for that user.</p>
+<p>Closed captions and call transcription enhance accessibility and inclusivity for hard-of-hearing users during a live call. They also help users with diverse language proficiencies have more engaging and productive conversations.</p>
+<p>Closed Captions and call transcriptions can be enabled at:</p>
+<ul>
+<li>
+<p>The user level,</p>
+</li>
+<li>
+<p>The location level, and</p>
+</li>
+<li>
+<p>at the organization level.</p>
+</li>
+</ul>
+<p>In this lab, we will enable CC and call transcription for the user Charles Holland in our Webex org. Proceed as follows.</p>
+<ul>
+<li>
+<p>Go to Management &gt; Users. Select the user, Charles Holland. Then click on the Calling Tab</p>
+</li>
+<li>
+<p>Under User call experience, click In-call feature access and scroll to the Captions for Webex Calling section at the bottom of the page</p>
+</li>
+<li>
+<p>Enable the closed captions and call transcriptions to allow the user Charles Holland to use these features during a call, then click Save.</p>
+</li>
+<li>
+<p>By default, the Use location settings option is always selected. The user inherits the closed captions and call transcriptions settings from the location settings. If the Use location settings option is selected, then you can't make any changes.</p>
+</li>
+<li>
+<p>Select Use custom settings to manually enable access for the use of Enable closed captions and the Enable call transcripts options. Click Save at the bottom right corner of the screen.</p>
+</li>
+<li>
+<p>If you use the custom settings and click Save, a banner appears asking whether you want to override the location settings for captions, since the user inherits closed captions and call transcripts settings from the location settings.</p>
+</li>
+</ul>
+<h2 id="module-3a-test-outbound-pstn-calls-from-webex-calling-via-lgw">Module 3a: Test Outbound PSTN Calls from Webex Calling via LGW</h2>
+<ul>
+<li>
+<p>Continuing on Workstation 1, minimize all the applications on the Desktop and open the Webex app from the Desktop. Accept any End user License Agreement.</p>
+</li>
+<li>
+<p>If prompted, update the Webex App. Else, click OK for the Emergency Calling Notification</p>
+</li>
+<li>
+<p>Go to the Calling tab on the left side page and dial your Australia-based mobile number. If you do not have an Australia-based mobile phone number, you can dial any local number. Below are a few test numbers for your reference.</p>
+</li>
+</ul>
+<p>SYDNEY: +61 2 8446 6000</p>
+<p>SYDNEY: +61 2 9296 1555</p>
+<p>MELBOURNE: +61 3 9669 4000</p>
+<p>Cisco MELBOURNE: +61 3 9659 4200</p>
+<ul>
+<li>
+<p>The call will be answered by an IVR. If you hear the IVR message the call is successfully connected. FYI, you do not need to make any selection on IVR.</p>
+</li>
+<li>
+<p>Optionally you can dial your Australia-based mobile phone number and answer the call on your mobile.</p>
+</li>
+<li>
+<p>Do not hang-up the call to test closed captions and AI generated call transcription.</p>
+</li>
+</ul>
+<h2 id="module-3b-test-closed-captions-and-ai-generated-call-transcription">Module 3b: Test Closed Captions and AI generated call transcription</h2>
+<ul>
+<li>
+<p>Redial the IVR number (+61284466000) if the call was previously disconnected.</p>
+</li>
+<li>
+<p>Once the call connects, click on the Closed Caption [CC] button. Closed captions will be displayed as shown below.</p>
+</li>
+<li>
+<p>Now click on the Transcript option as shown below.</p>
+</li>
+<li>
+<p>The AI generated transcript of the call can be seen.</p>
+</li>
+</ul>
+<hr>
+<h1 id="module-4-ai-generate-a-transcript-for-calls-recorded-by-webex-call-provider-approx-10-min">Module 4: AI-generate a transcript for calls recorded by Webex call provider [Approx 10 min]</h1>
+<blockquote>
+<p>Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.</p>
+</blockquote>
+<p>You can configure automatic transcription for recorded calls. Users can see the transcript in the player when they play the recording from Webex App or User Hub. Transcripts are currently available only for calls recorded by the Webex call recording provider and when the call is in English.</p>
+<p>As part of this module, we will test inbound PSTN calls as well.</p>
+<p>First, we will enable call recording at the user level, for the user Charles Holland in our organization.</p>
+<ul>
+<li>
+<p>Go to Management &gt; Users &gt; select Charles Holland. Then go to Calling &gt; User Call Experience &gt; Call recording.</p>
+</li>
+<li>
+<p>Turn on call recording with the settings shown below.</p>
+</li>
+<li>
+<p>Turn on Generate Transcript.</p>
+</li>
+</ul>
+<h2 id="module-4a-test-inbound-pstn-calls-to-webex-calling-via-lgw">Module 4a: Test Inbound PSTN Calls to Webex Calling via LGW</h2>
+<ul>
+<li>
+<p>Continuing on Workstation 1, minimize all the applications on the Desktop and open the file named DN_to_DID.txt.</p>
+</li>
+<li>
+<p>Dial the number for the user Charles Holland's Webex App as shown below.</p>
+</li>
+<li>
+<p>Note: This number will be unique for your pod. Do not dial the number displayed in the screenshot here.</p>
+</li>
+<li>
+<p>Note: If your cell phone is from outside of Australia, then replace the ‘0' with “+61”. For example, from a US cell phone number, instead of dialing “02 9173 8088”, dial “+61 2 9173 8088”</p>
+</li>
+<li>
+<p>Answer the call from the Webex App and keep it up for 20 seconds, talking all this while. You will hear the call recording announcement as the call is being recorded.</p>
+</li>
+<li>
+<p>Hang up the call and proceed to the next section.</p>
+</li>
+</ul>
+<h2 id="module-4b-access-ai-generated-summaries-for-call-recordings-from-the-webex-app">Module 4b: Access AI-generated summaries for call recordings from the Webex App.</h2>
+<p>Want to catch up on the discussion that happened in a call? When enabled by your organization's administrator, AI can generate a summary when you play back a call recording. The summary lists the action items and provides the full transcript from the call. So, you can quickly catch up on the discussion and get a better understanding of the conversation at a glance.</p>
+<ul>
+<li>
+<p>From the Webex App, click Calling, and then go to Recordings.</p>
+</li>
+<li>
+<p>Hover over a recording and click to open the recording player, and see the full AI-generated summary, with notes, and action items.</p>
+</li>
+<li>
+<p>Action items contain a timestamp, to help you easily navigate to the part of the recording in which you're interested.</p>
+</li>
+<li>
+<p>In the recording player, select from:</p>
+</li>
+</ul>
+<p>-AI summary, notes, and action items.</p>
+<ul>
+<li>-view the call transcript.</li>
+</ul>
+<p>This completes the lab activity.</p></body></html>
