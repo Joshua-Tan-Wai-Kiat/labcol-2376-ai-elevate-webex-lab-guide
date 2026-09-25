@@ -1,0 +1,28 @@
+site_name: Next Gen Calling AI Elevate with Webex
+site_description: Cisco Live Melbourne 2026 LABCOL-2376 lab guide
+theme:
+  name: material
+  font: false
+  palette:
+    primary: custom
+    accent: cyan
+  features:
+    - navigation.footer
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+markdown_extensions:
+  - admonition
+  - sane_lists
+  - tables
+  - toc:
+      permalink: true
+extra_css:
+  - stylesheets/extra.css
+nav:
+  - Overview: index.md
+  - Access the lab: 01-access-the-lab.md
+  - Webex Calling organization: 02-webex-calling-org.md
+  - Local Gateway: 03-local-gateway.md
+  - Captions and transcripts: 04-captions-transcripts.md
+  - Recording summaries: 05-recording-summaries.md
