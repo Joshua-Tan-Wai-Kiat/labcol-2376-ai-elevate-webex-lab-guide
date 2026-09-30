@@ -26,7 +26,7 @@ markdown_extensions:
   - toc:
       permalink: true
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/cisco-live-2026.css
 extra:
   generator: false
 nav:
