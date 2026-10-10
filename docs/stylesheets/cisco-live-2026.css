@@ -99,6 +99,30 @@ body, input { font-family: InterLocal, "Segoe UI", Arial, sans-serif; }
 .module-grid strong { color: var(--cisco-navy); }
 .module-grid small { color: var(--cisco-muted); margin-top: .12rem; }
 
+.lab-figure {
+  background: var(--cisco-soft);
+  border: 1px solid var(--cisco-line);
+  border-radius: .75rem;
+  margin: 1.35rem 0 1.7rem;
+  overflow: hidden;
+  padding: .7rem;
+}
+.lab-figure img {
+  background: white;
+  border-radius: .4rem;
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.lab-figure figcaption {
+  color: var(--cisco-muted);
+  font-size: .7rem;
+  line-height: 1.45;
+  padding: .65rem .25rem .1rem;
+  text-align: center;
+}
+
 @media screen and (max-width: 44.984rem) {
   .lab-hero { margin-left: -.8rem; margin-right: -.8rem; min-height: 23rem; padding: 6.8rem 1.35rem 2rem; }
   .outcome-grid { grid-template-columns: 1fr; }
