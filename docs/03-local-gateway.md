@@ -1,6 +1,6 @@
-# Module 2: Configuring a Local Gateway for Webex Calling [Approx 25 min]
+> **Lab data notice:** Values in screenshots are examples from the source guide. Use the credentials, addresses, phone numbers, and session details assigned to your own pod.
 
-> **Lab access note:** The values below are the shared lab defaults from the current source guide. If the pod details assigned to you differ, use the values on your pod's access page.
+# Module 2: Configuring a Local Gateway for Webex Calling
 
 After you configure Webex Calling for your organization, you can configure a trunk to connect your Local Gateway (LGW) to Webex Calling. SIP TLS transport secures the trunk between the Local Gateway and the Webex cloud. The media between the Local Gateway and Webex Calling uses SRTP. You can also import your pre-owned DIDs into Control Hub.
 
@@ -11,6 +11,11 @@ Registration-based trunk
 Certificate-based trunk
 
 In this lab, we will cover only Registration-based Trunk.
+
+<figure class="lab-figure">
+  <img src="../assets/source-guide/image28.png" alt="In this lab, we will cover only Registration-based Trunk.">
+  <figcaption>Source guide screenshot 28. Use the values assigned to your own lab pod.</figcaption>
+</figure>
 
 ## Module 2a: Local Gateway Configuration
 
@@ -58,7 +63,6 @@ In this module there are sub modules that are CLI (Command Line Interface) based
 
 1. Wait **2 to 3 minutes** for the LGW to initiate registration with Webex Calling.
 2. At the `LGW#` prompt, run `show sip-ua register status`.
-
 3. In the command output, confirm that the **reg** column reports `yes`. If it does not, recheck the pasted Voice Class Tenant and SIP profile configuration before continuing.
 
 <figure class="lab-figure">
@@ -86,15 +90,34 @@ Name: dCloud-RG
 
 Trunks: Drop down the option and choose the only available trunk (dCloud-Auto)
 
+<figure class="lab-figure">
+  <img src="../assets/source-guide/image34.png" alt="Trunks: Drop down the option and choose the only available trunk (dCloud-Auto)">
+  <figcaption>Source guide screenshot 34. Use the values assigned to your own lab pod.</figcaption>
+</figure>
+
 It will create the new Route Group dCloud-RG with the trunk.
 
-- Now we can assign this Route Group to the location. Click Locations (hyperlink) on the pop-up window. Select the dCloud location under available locations. On the dCloud location page, go to the PSTN tab. On the PSTN tab click Manage (next to PSTN Configuration > PSTN connection).
+1. Now we can assign this Route Group to the location. Click Locations (hyperlink) on the pop-up window. Select the dCloud location under available locations. On the dCloud location page, go to the PSTN tab. On the PSTN tab click Manage (next to PSTN Configuration > PSTN connection).
+<figure class="lab-figure">
+  <img src="../assets/source-guide/image35.png" alt="Now we can assign this Route Group to the location. Click Locations (hyperlink) on the pop-up window. Select the dCloud location under available locations. On the dCloud location p">
+  <figcaption>Source guide screenshot 35. Use the values assigned to your own lab pod.</figcaption>
+</figure>
 
 On the following page drop down the option for Routing Choice and choose the Route Group you defined. In this lab guide, it's named: dCloud-RG. Checkmark the option to confirm that you understand the impact of these changes. Also notice that as soon as you select the route group from the list, it displays the trunks in that Route Group. Click Next. Click Done (add numbers later) on the following page.
+
+<figure class="lab-figure">
+  <img src="../assets/source-guide/image37.png" alt="On the following page drop down the option for Routing Choice and choose the Route Group you defined. In this lab guide, it&#x27;s named: dCloud-RG. Checkmark the option to confirm that">
+  <figcaption>Source guide screenshot 37. Use the values assigned to your own lab pod.</figcaption>
+</figure>
 
 Now just to make sure the trunk is assigned to the location, go to SERVICES > PSTN & Routing > Gateway Configuration > Trunk
 
 Under the Trunk tab for the dCloud-Auto (or your trunk name) In Use column should show Yes as shown below. Similarly, if you go to Route Group tab, it will show the dCloud-RG route group In Use.
+
+<figure class="lab-figure">
+  <img src="../assets/source-guide/image39.png" alt="Under the Trunk tab for the dCloud-Auto (or your trunk name) In Use column should show Yes as shown below. Similarly, if you go to Route Group tab, it will show the dCloud-RG route">
+  <figcaption>Source guide screenshot 39. Use the values assigned to your own lab pod.</figcaption>
+</figure>
 
 This completes verifying the trunk status on Control Hub and assigning it to Route Group/Location.
 

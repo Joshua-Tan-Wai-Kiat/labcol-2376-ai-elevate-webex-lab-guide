@@ -1,79 +1,52 @@
-# Accessing your lab
+> **Lab data notice:** Values in screenshots are examples from the source guide. Use the credentials, addresses, phone numbers, and session details assigned to your own pod.
 
-Allow approximately 10 minutes for this section. You will connect to your assigned dCloud session, open Workstation 1, retrieve the pod-specific Webex credentials, and sign in to Collaboration Control Hub.
+# Accessing your Lab
 
-> The values shown in the lab environment are unique to your assigned session. Always use the host, username, password, session ID, and DNS name displayed for your own pod.
+Click on the Details from the dCloud eXPO page and use the Host, Username and Password to connect using Cisco Secure Client (formerly AnyConnect) to your dedicated dCloud session.
 
-## 1. Find your session details
+Record the Host, Username, Password, and Session ID displayed for your assigned session.
 
-1. Open the dCloud eXPO page for this lab and locate your assigned session.
-2. Select **Details**.
-3. Record your **Session ID**. You may need it when identifying pod-specific resources.
-4. Open the **AnyConnect** tab under the session details.
-5. Copy the **Host**, **Username**, and **Password** shown for your session. Do not use values from an example screenshot or another participant's pod.
+AnyConnect (Cisco Secure Client) Host: use the host shown in your session details.
 
-## 2. Connect with Cisco Secure Client
+AnyConnect (Cisco Secure Client) Username: use the username shown in your session details.
 
-1. Open **Cisco Secure Client** on your computer.
-2. Enter the AnyConnect host copied from the dCloud session details and select **Connect**.
-3. When prompted, enter the assigned username and password.
-4. Confirm that Cisco Secure Client reports an active connection before continuing.
+AnyConnect (Cisco Secure Client) Password: use the password shown in your session details.
 
-<figure class="lab-figure">
-  <img src="../assets/access/01-cisco-secure-client.png" alt="Cisco Secure Client prompting for the assigned dCloud username and password">
-  <figcaption>Enter the pod-specific username and password from the AnyConnect session details.</figcaption>
-</figure>
+Continue to next step after connecting to the pod via the Cisco Secure Client.
 
-## 3. Connect to Workstation 1
+## Connect to Workstation 1 via Remote Desktop
 
-1. Return to the dCloud session page and open the **Network** or topology view.
-2. Locate **Workstation 1**. It can also appear as **wkst1**.
-3. Select the **Remote Desktop** link for Workstation 1.
-4. If the browser downloads an RDP file, open it and accept the connection prompt.
-5. Use the Workstation 1 username and password displayed in your session details.
-6. Confirm that the Windows desktop labelled **WKST1** is visible.
-
-## 4. Find the Webex credentials
-
-On the Workstation 1 desktop, locate **WEBEX_PASSWORD.txt** and open it. The file contains the pod-specific credentials used for the Webex App and Collaboration Control Hub.
+Connect to the Remote desktop of Workstation 1. On your session topology click workstation 1 and click Remote Desktop to connect
 
 <figure class="lab-figure">
-  <img src="../assets/access/02-workstation-1-desktop.png" alt="Workstation 1 desktop with WEBEX_PASSWORD.txt highlighted in the lower-left corner">
-  <figcaption>Workstation 1 desktop. The WEBEX_PASSWORD.txt file is highlighted in the lower-left corner.</figcaption>
+  <img src="../assets/source-guide/image7.png" alt="Connect to the Remote desktop of Workstation 1. On your session topology click workstation 1 and click Remote Desktop to connect">
+  <figcaption>Source guide screenshot 7. Use the values assigned to your own lab pod.</figcaption>
 </figure>
 
-Keep the file open or record the following values in a private location:
+Within Workstation 1’s Desktop, there will be a file named WEBEX_PASSWORD.txt as shown above. Launch the file to get the username and password for the Webex App and the Collaboration Control Hub for this lab.
 
-- Control Hub administrator email address
-- Webex password assigned to the pod
+## Login to Collaboration Control Hub from within Workstation 1
 
-Do not copy these values into shared notes, screenshots, or the public lab guide.
+Lauch the Chrome browser from within workstation 1and go to https://admin.webex.com. Login using the credentials from the WEBEX_PASSWORD.txt file from the previous section. If you do not see the WEBEX_PASSWORD.txt file, follow the instructions below. Otherwise, begin Module 1 of this lab. All the lab tasks should be completed from within Workstation 1
 
-## 5. Sign in to Collaboration Control Hub
+Now you can proceed with the lab modules.
 
-1. From Workstation 1, open Chrome.
-2. Go to [https://admin.webex.com](https://admin.webex.com).
-3. Sign in with the Control Hub administrator email address and password from **WEBEX_PASSWORD.txt**.
-4. If a privacy, cookie, or introductory prompt appears, complete it and continue.
-5. Confirm that the Collaboration Control Hub home page loads for your assigned organization.
+### Alternate instructions for accessing Collaboration Control hub
 
-## If WEBEX_PASSWORD.txt is unavailable
+Before we can proceed to login to Collaboration Control Hub, we need the DNS name, username, password, and session ID. Within the session details page, select DNS Address and copy the top level FQDN as displayed below. In the example below:
 
-Use the pod information shown in the dCloud session details rather than guessing credentials:
+DNS Address / FQDN of your Webex organization: use the top-level FQDN shown for your assigned pod.
 
-1. Open **Details > DNS Address** and identify the DNS name assigned to the pod.
-2. Record the session ID from the same session details page.
-3. Follow the credential convention provided by the lab proctor or dCloud session instructions.
+Session ID: use the ID shown in your session details.
 
-If the credentials still cannot be determined, stop and ask the lab proctor. Do not use values displayed in screenshots from another session.
+Control Hub Username: cholland@&lt;FQDN&gt;, using your assigned top-level FQDN.
 
-## Checkpoint
+Control Hub Password: dCloud + the last 4 digits of your Session ID + !
 
-Before moving to Module 1, verify all of the following:
+1) On your PC, open Chrome browser and navigate to https://admin.webex.com
 
-- Cisco Secure Client is connected to the assigned dCloud session.
-- Workstation 1 is accessible through Remote Desktop.
-- The pod-specific Control Hub credentials have been located.
-- Collaboration Control Hub is open and shows the assigned organization.
+2) Login as Charles Holland with email and password. Your password will be dCloudXXXX! where XXXX will be your last 4 digits of your Session ID found in your Session Details tab.
 
-You can now proceed to [Module 1: Set up the Webex Calling organization](02-webex-calling-org.md).
+Once logged in, you should see this home page for Collaboration Control Hub:
+
+Now you can proceed with the lab modules.
