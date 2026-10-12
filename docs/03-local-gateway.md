@@ -35,12 +35,7 @@ In this module there are sub modules that are CLI (Command Line Interface) based
 2. In **Host Name (or IP address)**, enter `198.18.133.226`.
 3. Leave **Port** set to `22`, select **SSH**, and click **Open**.
 4. If PuTTY displays a host-key warning, confirm it only after checking that the address matches your assigned lab pod.
-5. At the login prompts, enter:
-
-    ```text
-    login as: admin
-    password: dCloud123!
-    ```
+5. At the login prompts, enter username `admin` and password `dCloud123!`.
 
     PuTTY does not display password characters while you type. Press **Enter** after the password and wait for the `LGW#` prompt.
 
@@ -62,11 +57,7 @@ In this module there are sub modules that are CLI (Command Line Interface) based
 ### Verify Webex Calling registration
 
 1. Wait **2 to 3 minutes** for the LGW to initiate registration with Webex Calling.
-2. At the `LGW#` prompt, run:
-
-    ```text
-    show sip-ua register status
-    ```
+2. At the `LGW#` prompt, run `show sip-ua register status`.
 
 3. In the command output, confirm that the **reg** column reports `yes`. If it does not, recheck the pasted Voice Class Tenant and SIP profile configuration before continuing.
 
