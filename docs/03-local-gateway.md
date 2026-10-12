@@ -1,6 +1,6 @@
 # Module 2: Configuring a Local Gateway for Webex Calling [Approx 25 min]
 
-> Use values assigned to your own lab pod. Do not copy example credentials or connectivity details into public documentation.
+> **Lab access note:** The values below are the shared lab defaults from the current source guide. If the pod details assigned to you differ, use the values on your pod's access page.
 
 After you configure Webex Calling for your organization, you can configure a trunk to connect your Local Gateway (LGW) to Webex Calling. SIP TLS transport secures the trunk between the Local Gateway and the Webex cloud. The media between the Local Gateway and Webex Calling uses SRTP. You can also import your pre-owned DIDs into Control Hub.
 
@@ -16,25 +16,66 @@ In this lab, we will cover only Registration-based Trunk.
 
 In this module there are sub modules that are CLI (Command Line Interface) based. These sub modules contain downloading the required Root certificate bundle for the Local Gateway (LGW), configuring voice class tenant, voice class SIP profiles, dial-peers and other required commands on the CLI. Due to time limitations, we have created a PowerShell script that adds the premises-based trunk in the Control Hub and generates the CUBE configuration for the Local Gateway. When the script is run, it will generate the entire required configuration for LGW and put it on Workstation 1 Desktop in a file called CL_LGW_ Config-Ready.txt. Once the configuration is generated, you can just copy and paste it in the putty session of the LGW and proceed to next steps.
 
-Continuing on Workstation 1, minimize all applications and find a PowerShell script on Desktop named CL_Add_Trunk.ps1.
+### Generate the Local Gateway configuration
 
-Right click on the file and choose Run with PowerShell.
+1. Continuing on **Workstation 1**, minimize all applications and find the PowerShell script named `CL_Add_Trunk.ps1` on the desktop.
+2. Right-click the file and select **Run with PowerShell**.
 
-It will open the PowerShell script window and execute the script. Once the script has been executed, the PowerShell window pane will close automatically. Then you will see a text file created on the Desktop called CL_LGW_Config-Ready.txt that contains the entire CUBE configuration required for the LGW. Double click and open the configuration file.
+<figure class="lab-figure">
+  <img src="../assets/local-gateway/01-run-trunk-script.png" alt="Right-click CL_Add_Trunk.ps1 and select Run with PowerShell">
+  <figcaption>Run the trunk-creation script from the Workstation 1 desktop.</figcaption>
+</figure>
 
-Copy all (use Ctrl + A) the contents of the file (CL_LGW_Config-Ready.txt). Go to the putty window and paste (Right click anywhere on the putty window).
+3. Wait while the script executes. The PowerShell window closes automatically when it finishes.
+4. Confirm that `CL_LGW_Config-Ready.txt` appears on the desktop, then double-click it to open the generated CUBE configuration.
 
-Once all the configuration is entered on Putty, scroll up and make sure there are NO error messages for any of the commands.
+### Connect to the LGW with PuTTY
 
-NOTE: Ignore the error message about saving the configuration at the end.
+1. Open **PuTTY** from the Workstation 1 taskbar or desktop.
+2. In **Host Name (or IP address)**, enter `198.18.133.226`.
+3. Leave **Port** set to `22`, select **SSH**, and click **Open**.
+4. If PuTTY displays a host-key warning, confirm it only after checking that the address matches your assigned lab pod.
+5. At the login prompts, enter:
 
-- At this point, the LGW should initiate registration to Webex Calling and you should see the trunk in LGW and Webex Calling up/online. Wait for 2 to 3 minutes and then on the Putty window use the command below, you will see the registration status yes.
+    ```text
+    login as: admin
+    password: dCloud123!
+    ```
 
-Configuration:
+    PuTTY does not display password characters while you type. Press **Enter** after the password and wait for the `LGW#` prompt.
 
-The status of the trunk can be seen in the output of this command; you can see here that the registration status is yes.
+!!! warning "Source screenshot address mismatch"
+    The written source step specifies `198.18.133.226`, but the supplied configuration screenshot shows `198.18.133.227` in its PuTTY title bar. Use the address assigned to your lab pod. Do not infer the correct address from the screenshot.
 
-Once you see the trunk registration status is yes, you can continue to the next module.
+### Paste and apply the generated configuration
+
+1. In `CL_LGW_Config-Ready.txt`, press **Ctrl+A**, then **Ctrl+C** to copy the entire configuration.
+2. Return to the authenticated PuTTY window and right-click once inside the terminal to paste. The commands begin running immediately.
+3. Wait until the `LGW#` prompt returns. Scroll through the terminal output and check for command errors.
+4. You may ignore only the final save error shown after `copy run start`; do not ignore errors from the configuration commands.
+
+<figure class="lab-figure">
+  <img src="../assets/local-gateway/02-paste-lgw-config.png" alt="Generated LGW configuration selected in Notepad and pasted into an authenticated PuTTY session">
+  <figcaption>Copy the complete generated configuration and paste it into the authenticated LGW session. This supplied screenshot shows a sample pod address; use your assigned address.</figcaption>
+</figure>
+
+### Verify Webex Calling registration
+
+1. Wait **2 to 3 minutes** for the LGW to initiate registration with Webex Calling.
+2. At the `LGW#` prompt, run:
+
+    ```text
+    show sip-ua register status
+    ```
+
+3. In the command output, confirm that the **reg** column reports `yes`. If it does not, recheck the pasted Voice Class Tenant and SIP profile configuration before continuing.
+
+<figure class="lab-figure">
+  <img src="../assets/local-gateway/03-verify-registration.png" alt="Output of show sip-ua register status with the registration status highlighted as yes">
+  <figcaption>The LGW is registered when the <strong>reg</strong> column shows <code>yes</code>.</figcaption>
+</figure>
+
+Once the registration status is `yes`, continue to Module 2b.
 
 ## Module 2b: Verifying trunk status on Control Hub and assigning it to a route group/location:
 
